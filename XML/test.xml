@@ -1,0 +1,12 @@
+<xml>
+	<intro>
+		<texte>Bonjour !</texte>
+	</intro>
+	<question>
+		<id></id>
+		<intitule></intitule>
+		<reponse></reponse>
+		<parent></parent>
+		<enfants></enfants>
+	</question>
+</xml>
