@@ -12,8 +12,8 @@ public class Question
     [XmlElement(ElementName = "intitule")]
     public string Intitule { get; set; }
 
-    [XmlElement(ElementName = "reponse")]
-    public List<string> Reponses { get; set; }
+    [XmlElement(ElementName = "proposition")]
+    public List<string> Propositions { get; set; }
 
     [XmlElement(ElementName = "suivant")]
     public int Suivant { get; set; }
