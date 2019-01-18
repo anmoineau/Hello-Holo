@@ -1,10 +1,18 @@
 <xml>
 	<intro>
-    <texte>Bienvenue au forum des entreprises ISIMATIC. Que puis-je faire pour vous ? </texte>
+    <texte>Bienvenue au forum des entreprises ISIMATIC. Que puis-je faire pour vous ?</texte>
     <suivant>01</suivant>
     <suivant>02</suivant>
     <suivant>03</suivant>
   </intro>
+  <question>
+    <id>00</id>
+    <intitule>J'ai une autre question.</intitule>
+    <reponse>Que puis-je faire pour vous ?</reponse>
+    <suivant>01</suivant>
+    <suivant>02</suivant>
+    <suivant>03</suivant>
+  </question>
 	<question>
 		<id>01</id>
 		<intitule>En quoi consiste le forum ?</intitule>

@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 746349963}
+  - component: {fileID: 746349964}
   m_Layer: 0
   m_Name: Interface
   m_TagString: Untagged
@@ -210,6 +211,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &746349964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 746349962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eace45d68a8a7f4588ad17373808903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 1650136488166756, guid: 60838f163d9266e4591542a6ec7c5fc8,
+    type: 2}
 --- !u!1 &1037472481
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,9 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7d0d09d13c1734a9aa66ac08837f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 746349962}
-  buttonPrefab: {fileID: 1650136488166756, guid: 60838f163d9266e4591542a6ec7c5fc8,
-    type: 2}
 --- !u!4 &1037472483
 Transform:
   m_ObjectHideFlags: 0

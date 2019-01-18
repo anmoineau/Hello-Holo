@@ -13,10 +13,10 @@ public class Question
     public string Intitule { get; set; }
 
     [XmlElement(ElementName = "reponse")]
-    public List<string> Reponses { get; set; }
+    public string Reponse { get; set; }
 
     [XmlElement(ElementName = "suivant")]
-    public List<int> Suivant { get; set; }
+    public List<int> Suivants { get; set; }
 
     [XmlElement(ElementName = "precedent")]
     public int Precedent { get; set; }
