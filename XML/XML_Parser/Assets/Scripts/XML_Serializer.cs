@@ -1,24 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Xml;
+﻿using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
-using System;  
 
 public class XML_Serializer : MonoBehaviour {
+    InterfaceCreator IC;
 
-	// Use this for initialization
 	void Start () {
         var serializer = new XmlSerializer(typeof(Xml));
-        var stream = File.Open("Assets/Scenarios/test.xml", FileMode.Open);
-        var container = (Xml)serializer.Deserialize(stream);
-        Debug.Log(container.Questions[0].Intitule + "\n");
+        var stream = File.Open("Assets/Scenarios/Isimatic.xml", FileMode.Open);
+        var scenario = (Xml)serializer.Deserialize(stream);
+        IC = GameObject.Find("Interface").GetComponent<InterfaceCreator>();
+        IC.Launch(scenario);
         stream.Close();
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

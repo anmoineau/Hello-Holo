@@ -13,13 +13,23 @@ public class Question
     public string Intitule { get; set; }
 
     [XmlElement(ElementName = "reponse")]
-    public List<string> Reponses { get; set; }
+    public string Reponse { get; set; }
 
     [XmlElement(ElementName = "suivant")]
-    public int Suivant { get; set; }
+    public List<int> Suivants { get; set; }
 
     [XmlElement(ElementName = "precedent")]
     public int Precedent { get; set; }
+}
+
+[XmlRoot(ElementName = "intro")]
+public class Intro
+{
+    [XmlElement(ElementName = "texte")]
+    public string Texte { get; set; }
+
+    [XmlElement(ElementName = "suivant")]
+    public List<int> Suivants { get; set; }
 }
 
 [XmlRoot(ElementName = "xml")]
@@ -28,6 +38,6 @@ public class Xml
     [XmlElement(ElementName = "question")]
     public List<Question> Questions { get; set; }
     [XmlElement(ElementName = "intro")]
-    public string Intro { get; set; }
+    public Intro Accueil { get; set; }
 }
 
