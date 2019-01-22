@@ -32,6 +32,19 @@ public class Intro
     public List<int> Suivants { get; set; }
 }
 
+[XmlRoot(ElementName = "information")]
+public class Info
+{
+    [XmlElement(ElementName = "texte")]
+    public string Texte { get; set; }
+
+    [XmlElement(ElementName = "horaire")]
+    public List<string> Horaires { get; set; }
+
+    [XmlElement(ElementName = "frequence")]
+    public float Frequence { get; set; }
+}
+
 [XmlRoot(ElementName = "xml")]
 public class Xml
 {
@@ -39,5 +52,7 @@ public class Xml
     public List<Question> Questions { get; set; }
     [XmlElement(ElementName = "intro")]
     public Intro Accueil { get; set; }
+    [XmlElement(ElementName = "information")]
+    public List<Info> Informations { get; set; }
 }
 

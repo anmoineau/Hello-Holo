@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Globalization;
 
 
 public class InterfaceCreator : MonoBehaviour
@@ -14,6 +15,8 @@ public class InterfaceCreator : MonoBehaviour
     private Xml scenario;
     private int buttonWidth = 350;
     private int buttonHeight = 40;
+    private int maxButton = 8;
+    private Boolean initialized = false;
 
     public void Launch(Xml scenario)
     {
@@ -21,11 +24,12 @@ public class InterfaceCreator : MonoBehaviour
         intitule = this.GetComponentInChildren<Text>();
         intitule.text = scenario.Accueil.Texte;
         SetInterface(scenario.Accueil.Suivants);
+        initialized = true;
     }
 
-    void SetInterface(List<int> IDs, Boolean isPrecedent = false, int posStart = 0)
+    private void SetInterface(List<int> IDs, Boolean isPrecedent = false, int posStart = 0)
     {
-        if(IDs.Count < 8)
+        if(IDs.Count < maxButton)
         {
             int i = posStart;
             foreach (int ID in IDs)
@@ -42,7 +46,7 @@ public class InterfaceCreator : MonoBehaviour
         }
     }
 
-    GameObject CreateButton(Question question, Vector3 position, Boolean isPrecedent)
+    private GameObject CreateButton(Question question, Vector3 position, Boolean isPrecedent)
     {
         GameObject button = Instantiate(buttonPrefab, this.transform.Find("Canvas"));
         button.GetComponentInChildren<Text>().text = isPrecedent? "Precedent" : question.Intitule;
@@ -54,7 +58,7 @@ public class InterfaceCreator : MonoBehaviour
         return button;
     }
 
-    void ButtonClicked(Question question)
+    private void ButtonClicked(Question question)
     {
         foreach (GameObject b in Buttons)
             Destroy(b);
@@ -65,6 +69,24 @@ public class InterfaceCreator : MonoBehaviour
             List<int> prec = new List<int>();
             prec.Add(question.Precedent);
             SetInterface(prec, true, question.Suivants.Count);
+        }
+    }
+
+    private void Update()
+    {
+        if (initialized)
+        {
+            foreach (Info info in scenario.Informations.Where(i => i.Horaires.Count != 0))
+            {
+                foreach (string horaire in info.Horaires)
+                {
+                    int retard = DateTime.Compare(DateTime.Now, DateTime.Parse(info.Horaires[0], CultureInfo.CreateSpecificCulture("fr-FR")));
+                    if (retard > 0)
+                    {
+                        Debug.Log(info.Texte);
+                    }
+                }
+            }
         }
     }
 }
