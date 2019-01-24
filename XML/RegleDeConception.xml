@@ -22,7 +22,7 @@
 	</question>
 	<information>
 		<intitule>Texte à afficher</intitule>
-		<frequence>10</frequence> <!-- en occurence par heure -->
+		<frequence>10</frequence> <!-- en minute -->
 	</information>
 	<information>
 		<intitule>Texte à afficher</intitule>

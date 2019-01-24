@@ -76,16 +76,45 @@ public class InterfaceCreator : MonoBehaviour
     {
         if (initialized)
         {
-            foreach (Info info in scenario.Informations.Where(i => i.Horaires.Count != 0))
+            int start;
+            DateTime startTime;
+            int stop;
+            DateTime stopTime;
+            foreach (Info info in scenario.Informations.Where(i => i.Ocurrences.Count != 0))
             {
-                foreach (string horaire in info.Horaires)
+                foreach (Occurence occurenceH in info.Ocurrences.Where(i => i.Horaire != null))
                 {
-                    int retard = DateTime.Compare(DateTime.Now, DateTime.Parse(info.Horaires[0], CultureInfo.CreateSpecificCulture("fr-FR")));
-                    if (retard > 0)
+                    if (occurenceH.Active)
+                    {
+                        startTime = DateTime.Parse(occurenceH.Horaire, CultureInfo.CreateSpecificCulture("fr-FR"));
+                        stopTime = startTime.AddSeconds(occurenceH.Duree);
+                        start = DateTime.Compare(DateTime.Now, startTime);
+                        stop = DateTime.Compare(DateTime.Now, stopTime);
+                        if (stop >= 0)
+                        {
+                            occurenceH.Active = false;
+                        } else if (start >= 0)
+                        {
+                            Debug.Log(info.Texte);
+                        }
+                    }
+                }
+
+                /*foreach (Occurence occurenceF in info.Ocurrences.Where(i => i.Periode.ToString() != null))
+                {
+                    startTime = DateTime.Now;
+                    stopTime = startTime.AddSeconds(occurenceF.Duree);
+                    start = DateTime.Compare(DateTime.Now, startTime);
+                    stop = DateTime.Compare(DateTime.Now, stopTime);
+                    if (stop >= 0)
+                    {
+                        startTime = startTime.AddMinutes(occurenceF.Periode);
+                    }
+                    else if (start >= 0)
                     {
                         Debug.Log(info.Texte);
                     }
-                }
+                }*/
             }
         }
     }

@@ -35,14 +35,33 @@ public class Intro
 [XmlRoot(ElementName = "information")]
 public class Info
 {
-    [XmlElement(ElementName = "texte")]
+    [XmlElement(ElementName = "intitule")]
     public string Texte { get; set; }
 
-    [XmlElement(ElementName = "horaire")]
-    public List<string> Horaires { get; set; }
+    [XmlElement(ElementName = "occurence")]
+    public List<Occurence> Ocurrences { get; set; }
 
     [XmlElement(ElementName = "frequence")]
     public float Frequence { get; set; }
+
+    [XmlElement(ElementName = "duree")]
+    public float Duree { get; set; }
+}
+
+[XmlRoot(ElementName = "occurence")]
+public class Occurence
+{
+    [XmlElement(ElementName = "horaire")]
+    public string Horaire { get; set; }
+
+    [XmlElement(ElementName = "frequence")]
+    public float Periode { get; set; }
+
+    [XmlElement(ElementName = "duree")]
+    public float Duree { get; set; }
+
+    [XmlElement(ElementName = "active")]
+    public bool Active { get; set; }
 }
 
 [XmlRoot(ElementName = "xml")]
