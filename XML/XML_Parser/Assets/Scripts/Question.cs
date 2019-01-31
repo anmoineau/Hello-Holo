@@ -40,12 +40,6 @@ public class Info
 
     [XmlElement(ElementName = "occurence")]
     public List<Occurence> Ocurrences { get; set; }
-
-    [XmlElement(ElementName = "frequence")]
-    public float Frequence { get; set; }
-
-    [XmlElement(ElementName = "duree")]
-    public float Duree { get; set; }
 }
 
 [XmlRoot(ElementName = "occurence")]
@@ -54,7 +48,7 @@ public class Occurence
     [XmlElement(ElementName = "horaire")]
     public string Horaire { get; set; }
 
-    [XmlElement(ElementName = "frequence")]
+    [XmlElement(ElementName = "periode")]
     public float Periode { get; set; }
 
     [XmlElement(ElementName = "duree")]

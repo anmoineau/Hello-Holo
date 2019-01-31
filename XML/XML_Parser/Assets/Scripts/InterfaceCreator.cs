@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,10 +9,10 @@ using System.Globalization;
 
 public class InterfaceCreator : MonoBehaviour
 {
-
     public GameObject buttonPrefab;
     private List<GameObject> Buttons = new List<GameObject>();
     private Text intitule;
+    private Text infoTexte;
     private Xml scenario;
     private int buttonWidth = 350;
     private int buttonHeight = 40;
@@ -21,9 +22,11 @@ public class InterfaceCreator : MonoBehaviour
     public void Launch(Xml scenario)
     {
         this.scenario = scenario;
-        intitule = this.GetComponentInChildren<Text>();
+        intitule = this.GetComponentsInChildren<Text>()[0];
+        infoTexte = this.GetComponentsInChildren<Text>()[1];
         intitule.text = scenario.Accueil.Texte;
         SetInterface(scenario.Accueil.Suivants);
+        StartPeriodic();
         initialized = true;
     }
 
@@ -93,29 +96,39 @@ public class InterfaceCreator : MonoBehaviour
                         if (stop >= 0)
                         {
                             occurenceH.Active = false;
+                            infoTexte.text.Replace(info.Texte + "\n", "");
                         } else if (start >= 0)
                         {
-                            Debug.Log(info.Texte);
+                            infoTexte.text = infoTexte.text + info.Texte + "\n";
                         }
                     }
                 }
-
-                /*foreach (Occurence occurenceF in info.Ocurrences.Where(i => i.Periode.ToString() != null))
-                {
-                    startTime = DateTime.Now;
-                    stopTime = startTime.AddSeconds(occurenceF.Duree);
-                    start = DateTime.Compare(DateTime.Now, startTime);
-                    stop = DateTime.Compare(DateTime.Now, stopTime);
-                    if (stop >= 0)
-                    {
-                        startTime = startTime.AddMinutes(occurenceF.Periode);
-                    }
-                    else if (start >= 0)
-                    {
-                        Debug.Log(info.Texte);
-                    }
-                }*/
             }
         }
+    }
+
+    private void StartPeriodic()
+    {
+        foreach (Info info in scenario.Informations.Where(i => i.Ocurrences.Count != 0))
+        {
+            foreach (Occurence occurenceF in info.Ocurrences.Where(i => i.Periode != 0))
+            {
+                StartCoroutine(WaitAndPrint(info.Texte, occurenceF.Duree, occurenceF.Periode));
+            }
+        }
+    }
+
+    IEnumerator WaitAndErase(string _intitule, float _duree, float _periode)
+    {
+        infoTexte.text = infoTexte.text.Replace(_intitule + "\n", "");
+        yield return new WaitForSeconds(_periode - _duree);
+        StartCoroutine(WaitAndPrint(_intitule, _duree, _periode));
+    }
+
+    IEnumerator WaitAndPrint(string _intitule, float _duree, float _periode)
+    {
+        infoTexte.text = infoTexte.text + _intitule + "\n";
+        yield return new WaitForSeconds(_duree);
+        StartCoroutine(WaitAndErase(_intitule, _duree, _periode));
     }
 }

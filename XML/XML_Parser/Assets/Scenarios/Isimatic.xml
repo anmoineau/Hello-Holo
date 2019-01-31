@@ -76,25 +76,33 @@
 	<information>
     <intitule>Pensez à apporter un CV lors d'une rencontre avec une entreprise.</intitule>
 		<occurence>
-      <periode>10</periode>
+      <periode>20</periode>
       <duree>10</duree>
+      <active>true</active>
+    </occurence>
+  </information>
+  <information>
+    <intitule>Pensez à rester hydrater.</intitule>
+		<occurence>
+      <periode>10</periode>
+      <duree>5</duree>
       <active>true</active>
     </occurence>
   </information>
 	<information>
 		<intitule>Les entreprises Avanade et Michelin vont se diriger vers la cafétéria pour déjeuner, elles reviendront dans une heure environ.</intitule>
 		<occurence>
-      <horaire>24.01.2019 15:16</horaire>
+      <horaire>29.01.2019 10:46</horaire>
       <duree>30</duree>
-      <active>false</active>
+      <active>true</active>
     </occurence>
 	</information>
 	<information>
 		<intitule>Les entreprises Modis, Atos et Capgemini vont se diriger vers la cafétéria pour déjeuner, elles reviendront dans une heure environ.</intitule>
 		<occurence>
-      <horaire>24.01.2019 15:17</horaire>
+      <horaire>29.01.2019 10:47</horaire>
       <duree>10</duree>
-      <active>false</active>
+      <active>true</active>
     </occurence>
   </information>
 </xml>
