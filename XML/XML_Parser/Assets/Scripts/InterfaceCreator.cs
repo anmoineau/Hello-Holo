@@ -11,7 +11,7 @@ public class InterfaceCreator : MonoBehaviour
 {
     public GameObject buttonPrefab;
     private List<GameObject> Buttons = new List<GameObject>();
-    private Text intitule;
+    private Text intituTexte;
     private Text infoTexte;
     private Xml scenario;
     private int buttonWidth = 350;
@@ -22,9 +22,9 @@ public class InterfaceCreator : MonoBehaviour
     public void Launch(Xml scenario)
     {
         this.scenario = scenario;
-        intitule = this.GetComponentsInChildren<Text>()[0];
+        intituTexte = this.GetComponentsInChildren<Text>()[0];
         infoTexte = this.GetComponentsInChildren<Text>()[1];
-        intitule.text = scenario.Accueil.Texte;
+        intituTexte.text = scenario.Accueil.Texte;
         SetInterface(scenario.Accueil.Suivants);
         StartPeriodic();
         initialized = true;
@@ -38,14 +38,14 @@ public class InterfaceCreator : MonoBehaviour
             foreach (int ID in IDs)
             {
                 Question newQuestion = scenario.Questions.First(q => q.Id == ID);
-                float newHeight = intitule.rectTransform.localPosition[1] - buttonHeight * 1.5f - (i++ * buttonHeight * 1.1f);
+                float newHeight = intituTexte.transform.parent.localPosition[1]- 65 - (i++ * buttonHeight * 1.1f);
                 Vector3 newPosition = new Vector3(0, newHeight, 0);
                 Buttons.Add(CreateButton(newQuestion, newPosition, isPrecedent));
             }
         }
         else
         {
-            intitule.text = "Erreur format scénario";
+            intituTexte.text = "Erreur format scénario";
         }
     }
 
@@ -65,7 +65,7 @@ public class InterfaceCreator : MonoBehaviour
     {
         foreach (GameObject b in Buttons)
             Destroy(b);
-        intitule.text = question.Reponse;
+        intituTexte.text = question.Reponse;
         SetInterface(question.Suivants);
         if (question.Id != 0)
         {
@@ -87,21 +87,18 @@ public class InterfaceCreator : MonoBehaviour
             {
                 foreach (Occurence occurenceH in info.Ocurrences.Where(i => i.Horaire != null))
                 {
-                    if (occurenceH.Active)
-                    {
                         startTime = DateTime.Parse(occurenceH.Horaire, CultureInfo.CreateSpecificCulture("fr-FR"));
                         stopTime = startTime.AddSeconds(occurenceH.Duree);
                         start = DateTime.Compare(DateTime.Now, startTime);
                         stop = DateTime.Compare(DateTime.Now, stopTime);
                         if (stop >= 0)
                         {
-                            occurenceH.Active = false;
-                            infoTexte.text.Replace(info.Texte + "\n", "");
-                        } else if (start >= 0)
+                            infoTexte.text = infoTexte.text.Replace(" - " + info.Texte + "\n", "");
+                        } else if (start >= 0 && occurenceH.Active)
                         {
-                            infoTexte.text = infoTexte.text + info.Texte + "\n";
+                            occurenceH.Active = false;
+                            infoTexte.text = infoTexte.text + " - " + info.Texte + "\n";
                         }
-                    }
                 }
             }
         }
@@ -120,15 +117,15 @@ public class InterfaceCreator : MonoBehaviour
 
     IEnumerator WaitAndErase(string _intitule, float _duree, float _periode)
     {
-        infoTexte.text = infoTexte.text.Replace(_intitule + "\n", "");
-        yield return new WaitForSeconds(_periode - _duree);
+        yield return new WaitForSeconds(_duree);
+        infoTexte.text = infoTexte.text.Replace(" - " + _intitule + "\n", "");
         StartCoroutine(WaitAndPrint(_intitule, _duree, _periode));
     }
 
     IEnumerator WaitAndPrint(string _intitule, float _duree, float _periode)
     {
-        infoTexte.text = infoTexte.text + _intitule + "\n";
-        yield return new WaitForSeconds(_duree);
+        yield return new WaitForSeconds(_periode - _duree);
+        infoTexte.text = infoTexte.text + " - " + _intitule + "\n";
         StartCoroutine(WaitAndErase(_intitule, _duree, _periode));
     }
 }
