@@ -1,0 +1,31 @@
+<xml>
+	<intro> <!-- une et une seule introduction par scenario -->
+    <texte>Message d'accueil</texte>
+    <suivant>01</suivant> <!-- Obligatoirement un suivant par question (au moins id 00) -->
+    <suivant>02</suivant>
+    <suivant>03</suivant>
+  </intro>
+  <question> <!-- un à n questions, id 00 obligatoire -->
+    <id>00</id> <!-- toutes les branches rebouclent ici -->
+    <intitule>Nom du bouton</intitule> <!-- ex; "Retour au début" -->
+    <reponse>Message page principal</reponse>
+    <suivant>01</suivant>
+    <suivant>02</suivant>
+    <suivant>03</suivant>
+  </question>
+	<question>
+		<id>01</id>
+		<intitule>Nom du bouton</intitule>
+		<reponse>Texte à afficher si ce bouton est sélectionné</reponse>
+		<precedent>00</precedent> <!-- Obligatoirement un precedent par question (sauf id 00) -->
+		<suivant>00</suivant>
+	</question>
+	<information>
+		<intitule>Texte à afficher</intitule>
+		<frequence>10</frequence> <!-- en minute -->
+	</information>
+	<information>
+		<intitule>Texte à afficher</intitule>
+		<horaire>11h40</horaire>
+	</information>
+</xml>

@@ -32,6 +32,32 @@ public class Intro
     public List<int> Suivants { get; set; }
 }
 
+[XmlRoot(ElementName = "information")]
+public class Info
+{
+    [XmlElement(ElementName = "intitule")]
+    public string Texte { get; set; }
+
+    [XmlElement(ElementName = "occurence")]
+    public List<Occurence> Ocurrences { get; set; }
+}
+
+[XmlRoot(ElementName = "occurence")]
+public class Occurence
+{
+    [XmlElement(ElementName = "horaire")]
+    public string Horaire { get; set; }
+
+    [XmlElement(ElementName = "periode")]
+    public float Periode { get; set; }
+
+    [XmlElement(ElementName = "duree")]
+    public float Duree { get; set; }
+
+    [XmlElement(ElementName = "active")]
+    public bool Active { get; set; }
+}
+
 [XmlRoot(ElementName = "xml")]
 public class Xml
 {
@@ -39,5 +65,7 @@ public class Xml
     public List<Question> Questions { get; set; }
     [XmlElement(ElementName = "intro")]
     public Intro Accueil { get; set; }
+    [XmlElement(ElementName = "information")]
+    public List<Info> Informations { get; set; }
 }
 

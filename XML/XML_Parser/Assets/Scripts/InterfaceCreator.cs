@@ -1,53 +1,131 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Globalization;
 
 
 public class InterfaceCreator : MonoBehaviour
 {
-
     public GameObject buttonPrefab;
     private List<GameObject> Buttons = new List<GameObject>();
-    private Text intitule;
+    private Text intituTexte;
+    private Text infoTexte;
     private Xml scenario;
+    private int buttonWidth = 350;
+    private int buttonHeight = 40;
+    private int maxButton = 8;
+    private Boolean initialized = false;
 
     public void Launch(Xml scenario)
     {
         this.scenario = scenario;
-        intitule = this.GetComponentInChildren<Text>();
-        intitule.text = scenario.Accueil.Texte;
-        int i = 0;
-        
-        foreach (int choix in scenario.Accueil.Suivants)
+        intituTexte = this.GetComponentsInChildren<Text>()[0];
+        infoTexte = this.GetComponentsInChildren<Text>()[1];
+        intituTexte.text = scenario.Accueil.Texte;
+        SetInterface(scenario.Accueil.Suivants);
+        StartPeriodic();
+        initialized = true;
+    }
+
+    private void SetInterface(List<int> IDs, Boolean isPrecedent = false, int posStart = 0)
+    {
+        if(IDs.Count < maxButton)
         {
-            Buttons.Add(CreateButton(scenario.Questions[choix], new Vector3(0, 40 - (i++ * 40), 0), false));
+            int i = posStart;
+            foreach (int ID in IDs)
+            {
+                Question newQuestion = scenario.Questions.First(q => q.Id == ID);
+                float newHeight = intituTexte.transform.parent.localPosition[1]- 65 - (i++ * buttonHeight * 1.1f);
+                Vector3 newPosition = new Vector3(0, newHeight, 0);
+                Buttons.Add(CreateButton(newQuestion, newPosition, isPrecedent));
+            }
+        }
+        else
+        {
+            intituTexte.text = "Erreur format scénario";
         }
     }
 
-    GameObject CreateButton(Question question, Vector3 position, Boolean precedent)
+    private GameObject CreateButton(Question question, Vector3 position, Boolean isPrecedent)
     {
         GameObject button = Instantiate(buttonPrefab, this.transform.Find("Canvas"));
-        button.GetComponentInChildren<Text>().text = precedent? "Precedent" : question.Intitule;
+        button.GetComponentInChildren<Text>().text = isPrecedent? "Precedent" : question.Intitule;
         RectTransform bTransform = button.GetComponent<RectTransform>();
         bTransform.localPosition = position;
-        bTransform.sizeDelta = new Vector2(300, 30);
+        bTransform.sizeDelta = new Vector2(buttonWidth, buttonHeight);
         Button handler = button.GetComponent<Button>();
         handler.onClick.AddListener(() => ButtonClicked(question));
         return button;
     }
 
-    void ButtonClicked(Question question)
+    private void ButtonClicked(Question question)
     {
         foreach (GameObject b in Buttons)
             Destroy(b);
-        intitule.text = question.Reponse;
-        int i = 0;
-        foreach (int suivant in question.Suivants)
+        intituTexte.text = question.Reponse;
+        SetInterface(question.Suivants);
+        if (question.Id != 0)
         {
-            Buttons.Add(CreateButton(scenario.Questions[suivant], new Vector3(0, 30 - (i++ * 40), 0), false));
+            List<int> prec = new List<int>();
+            prec.Add(question.Precedent);
+            SetInterface(prec, true, question.Suivants.Count);
         }
-        if(question.Id != 0)
-            Buttons.Add(CreateButton(scenario.Questions[question.Precedent], new Vector3(0, 30 - (i++ * 40), 0), true));
+    }
+
+    private void Update()
+    {
+        if (initialized)
+        {
+            int start;
+            DateTime startTime;
+            int stop;
+            DateTime stopTime;
+            foreach (Info info in scenario.Informations.Where(i => i.Ocurrences.Count != 0))
+            {
+                foreach (Occurence occurenceH in info.Ocurrences.Where(i => i.Horaire != null))
+                {
+                        startTime = DateTime.Parse(occurenceH.Horaire, CultureInfo.CreateSpecificCulture("fr-FR"));
+                        stopTime = startTime.AddSeconds(occurenceH.Duree);
+                        start = DateTime.Compare(DateTime.Now, startTime);
+                        stop = DateTime.Compare(DateTime.Now, stopTime);
+                        if (stop >= 0)
+                        {
+                            infoTexte.text = infoTexte.text.Replace(" - " + info.Texte + "\n", "");
+                        } else if (start >= 0 && occurenceH.Active)
+                        {
+                            occurenceH.Active = false;
+                            infoTexte.text = infoTexte.text + " - " + info.Texte + "\n";
+                        }
+                }
+            }
+        }
+    }
+
+    private void StartPeriodic()
+    {
+        foreach (Info info in scenario.Informations.Where(i => i.Ocurrences.Count != 0))
+        {
+            foreach (Occurence occurenceF in info.Ocurrences.Where(i => i.Periode != 0))
+            {
+                StartCoroutine(WaitAndPrint(info.Texte, occurenceF.Duree, occurenceF.Periode));
+            }
+        }
+    }
+
+    IEnumerator WaitAndErase(string _intitule, float _duree, float _periode)
+    {
+        yield return new WaitForSeconds(_duree);
+        infoTexte.text = infoTexte.text.Replace(" - " + _intitule + "\n", "");
+        StartCoroutine(WaitAndPrint(_intitule, _duree, _periode));
+    }
+
+    IEnumerator WaitAndPrint(string _intitule, float _duree, float _periode)
+    {
+        yield return new WaitForSeconds(_periode - _duree);
+        infoTexte.text = infoTexte.text + " - " + _intitule + "\n";
+        StartCoroutine(WaitAndErase(_intitule, _duree, _periode));
     }
 }
