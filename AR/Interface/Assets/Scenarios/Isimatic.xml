@@ -1,0 +1,108 @@
+<xml>
+	<intro>
+    <texte>Bienvenue au forum des entreprises ISIMATIC. Que puis-je faire pour vous ?</texte>
+    <suivant>01</suivant>
+    <suivant>02</suivant>
+    <suivant>03</suivant>
+  </intro>
+  <question>
+    <id>00</id>
+    <intitule>J'ai une autre question.</intitule>
+    <reponse>Que puis-je faire pour vous ?</reponse>
+    <suivant>01</suivant>
+    <suivant>02</suivant>
+    <suivant>03</suivant>
+  </question>
+	<question>
+		<id>01</id>
+		<intitule>En quoi consiste le forum ?</intitule>
+		<reponse>Le forum sert d'aide aux étudiants de l'ISIMA dans leur recherche de stages et/ou d'alternances.</reponse>
+		<precedent>00</precedent>
+		<suivant>00</suivant>
+	</question>
+	<question>
+		<id>02</id>
+		<intitule>Combien de temps dure le forum ?</intitule>
+		<reponse>Le forum se déroule sur une journée. Il débute le matin à 9h et se termine vers 17h.</reponse>
+		<precedent>00</precedent>
+		<suivant>00</suivant>
+	</question>
+	<question>
+		<id>03</id>
+		<intitule>Quelle est la liste des entreprises présentes ?</intitule>
+		<reponse>Avanade, Michelin, Modis, Atos, Capgemini</reponse>
+		<precedent>00</precedent>
+		<suivant>04</suivant>
+		<suivant>05</suivant>
+		<suivant>06</suivant>
+		<suivant>07</suivant>
+		<suivant>08</suivant>
+	</question>
+	<question>
+		<id>04</id>
+		<intitule>Dans quelle salle se trouve Avanade ?</intitule>
+		<reponse>Salle A002</reponse>
+		<precedent>03</precedent>
+		<suivant>00</suivant>
+	</question>
+	<question>
+		<id>05</id>
+		<intitule>Dans quelle salle se trouve Michelin ?</intitule>
+		<reponse>Salle A104</reponse>
+		<precedent>03</precedent>
+		<suivant>00</suivant>
+	</question>
+	<question>
+		<id>06</id>
+		<intitule>Dans quelle salle se trouve Modis ?</intitule>
+		<reponse>Salle G020 (Batiment Pôle Commun)</reponse>
+		<precedent>03</precedent>
+		<suivant>00</suivant>
+	</question>
+	<question>
+		<id>07</id>
+		<intitule>Dans quelle salle se trouve Atos ?</intitule>
+		<reponse>Salle A113</reponse>
+		<precedent>03</precedent>
+		<suivant>00</suivant>
+	</question>
+	<question>
+		<id>08</id>
+		<intitule>Dans quelle salle se trouve Capgemini ?</intitule>
+		<reponse>Salle A211</reponse>
+		<precedent>03</precedent>
+		<suivant>00</suivant>
+	</question>
+	<information>
+    <intitule>Pensez à apporter un CV lors d'une rencontre avec une entreprise.</intitule>
+		<occurence>
+      <periode>20</periode>
+      <duree>5</duree>
+      <active>true</active>
+    </occurence>
+  </information>
+  <information>
+    <intitule>Pensez à rester hydrater.</intitule>
+		<occurence>
+      <periode>30</periode>
+      <duree>5</duree>
+      <active>true</active>
+    </occurence>
+  </information>
+	<information>
+		<intitule>Les entreprises Avanade et Michelin vont se diriger vers la cafétéria pour déjeuner, elles reviendront dans une heure environ.</intitule>
+		<occurence>
+      <horaire>04.03.2019 17:23</horaire>
+      <duree>30</duree>
+      <active>true</active>
+    </occurence>
+	</information>
+	<information>
+		<intitule>Les entreprises Modis, Atos et Capgemini vont se diriger vers la cafétéria pour déjeuner, elles reviendront dans une heure environ.</intitule>
+		<occurence>
+      <horaire>04.03.2019 17:24</horaire>
+      <duree>10</duree>
+      <active>true</active>
+    </occurence>
+  </information>
+</xml>

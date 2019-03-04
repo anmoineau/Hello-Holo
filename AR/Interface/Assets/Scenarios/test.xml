@@ -1,0 +1,19 @@
+<xml>
+	<intro>Bonjour !</intro>
+	<question>
+		<id>01</id>
+		<intitule>Que puis-je faire pour vous ?</intitule>
+		<proposition>Indiquez moi l'heure.</proposition>
+    <proposition>Indiquez moi une salle.</proposition>
+    <proposition>Rien pour l'instant.</proposition>
+		<suivant>02</suivant>
+	</question>
+  <question>
+    <id>02</id>
+    <intitule>Etes-vous satisfait ?</intitule>
+    <proposition>Oui</proposition>
+    <proposition>Non</proposition>
+    <precedent>01</precedent>
+    <suivant>01</suivant>
+  </question>
+</xml>
