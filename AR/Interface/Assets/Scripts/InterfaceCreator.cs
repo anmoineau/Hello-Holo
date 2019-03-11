@@ -13,13 +13,13 @@ public class InterfaceCreator : MonoBehaviour
     private List<GameObject> Buttons = new List<GameObject>();
     private Text intituTexte;
     private Text infoTexte;
-    private Xml scenario;
+    private Scenario scenario;
     private int buttonWidth = 350;
     private int buttonHeight = 40;
     private int maxButton = 8;
     private bool initialized = false;
 
-    public void Launch(Xml scenario)
+    public void Launch(Scenario scenario)
     {
         this.scenario = scenario;
         intituTexte = this.GetComponentsInChildren<Text>()[0];

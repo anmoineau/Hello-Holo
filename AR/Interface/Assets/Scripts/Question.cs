@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
 [XmlRoot(ElementName = "question")]
@@ -59,7 +57,7 @@ public class Occurence
 }
 
 [XmlRoot(ElementName = "xml")]
-public class Xml
+public class Scenario
 {
     [XmlElement(ElementName = "question")]
     public List<Question> Questions { get; set; }
