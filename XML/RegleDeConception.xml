@@ -1,31 +1,40 @@
 <xml>
-	<intro> <!-- une et une seule introduction par scenario -->
-    <texte>Message d'accueil</texte>
-    <suivant>01</suivant> <!-- Obligatoirement un suivant par question (au moins id 00) -->
+	<intro> <!-- Une et une seule introduction par scenario -->
+    <texte>Message d'accueil</texte> <!-- Visible uniquement à l'ouverture de l'application -->
+    <suivant>01</suivant> <!-- Obligatoirement un "suivant" -->
     <suivant>02</suivant>
     <suivant>03</suivant>
   </intro>
-  <question> <!-- un à n questions, id 00 obligatoire -->
+  <question> <!-- une à n questions, id 00 obligatoire -->
     <id>00</id> <!-- toutes les branches rebouclent ici -->
-    <intitule>Nom du bouton</intitule> <!-- ex; "Retour au début" -->
+    <intitule>Nom du bouton</intitule> <!-- ex: "Retour au début" -->
     <reponse>Message page principal</reponse>
-    <suivant>01</suivant>
+    <suivant>01</suivant> <!-- Obligatoirement un "suivant" -->
     <suivant>02</suivant>
     <suivant>03</suivant>
   </question>
 	<question>
 		<id>01</id>
-		<intitule>Nom du bouton</intitule>
-		<reponse>Texte à afficher si ce bouton est sélectionné</reponse>
-		<precedent>00</precedent> <!-- Obligatoirement un precedent par question (sauf id 00) -->
-		<suivant>00</suivant>
+		<intitule>Nom du bouton</intitule> <!-- Intitulé de la question -->
+		<reponse>Texte à afficher si ce bouton est sélectionné</reponse> <!-- Réponse à la question -->
+		<precedent>00</precedent> <!-- Obligatoirement un "precedent" par question (sauf pour id 00) -->
+		<suivant>00</suivant>     <!-- Obligatoirement un "suivant" par question (au moins id 00) -->
 	</question>
-	<information>
-		<intitule>Texte à afficher</intitule>
-		<frequence>10</frequence> <!-- en minute -->
-	</information>
-	<information>
-		<intitule>Texte à afficher</intitule>
-		<horaire>11h40</horaire>
-	</information>
+  <information>
+    <intitule>Information à afficher.</intitule>
+    <occurence>
+      <periode>x</periode>    <!-- Information de type périodique -->
+      <duree>y</duree>        <!-- Affichée y secondes toutes les x secondes (x > y) -->
+      <active>true</active>   <!-- Les informations peuvent être activées/désactivées manuellement (aussi utilisé dans le code) -->
+    </occurence>
+  </information>
+  <information>
+    <intitule>Information à afficher.</intitule>
+    <occurence>               <!-- Plusieurs occurences possibles -->
+      <horaire>jj.mm.aaaa hh:mm</horaire> <!-- Information à horaire fixe -->
+      <duree>x</duree>      <!-- Durée d'affichage de l'information -->
+      <active>true</active>
+    </occurence>
+  </information>
 </xml>
+
